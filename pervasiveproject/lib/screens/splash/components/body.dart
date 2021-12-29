@@ -8,6 +8,17 @@ class Body extends StatefulWidget{
 }
 
 class _BodyState extends State<Body>{
+  List<Map<String, String>> splashData = [
+    {
+      "text": "Welcome to Lock&Go, have you locked your door?",
+      "image": "./assets/images/remote-control-door-lock.png"
+    },
+    {
+      "text": "The only smart lock you will ever need",
+      "image": "./assets/images/thumbnail_smartphone_smartlock_chandsfree.jpg"
+    },
+    
+  ];
   @override 
   Widget build(BuildContext context){
 
@@ -20,8 +31,10 @@ class _BodyState extends State<Body>{
         Expanded(
           flex: 3, // length of the box
           child: PageView.builder( // slider page
-            itemBuilder: (context, index) => SplashContent(
-            image: "./assets/images/remote-control-door-lock.png",
+          itemCount: splashData.length,
+          itemBuilder: (context, index) => SplashContent(
+            image: splashData[index]["image"].toString(),
+              // image: "./assets/images/thumbnail_smartphone_smartlock_chandsfree.jpg",
             text: "Welcome to Lock&Go, have you locked your door?",
           ),
       )),
@@ -61,7 +74,8 @@ class SplashContent extends StatelessWidget {
         Image.asset(
           image,
           height: getProportionateScreenHeight(265),
-          // width: getProportionateScreenWidth(235),
+          scale: 0.5
+          // width: getProportionateScreenWidth(23500),
         ),
       ],
         
