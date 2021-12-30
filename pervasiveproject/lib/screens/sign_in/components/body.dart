@@ -58,7 +58,8 @@ class _SignFormState extends State<SignForm> {
               floatingLabelBehavior: FloatingLabelBehavior.always,
 
               // create icon email 
-              // suffixIcon: SvgPicture.asset("pervasiveproject/assets/icons/Mail.svg"),
+              // suffixIcon: SvgPicture.asset("assets/icons/Mail.svg"),
+
 
             ),
           ),
