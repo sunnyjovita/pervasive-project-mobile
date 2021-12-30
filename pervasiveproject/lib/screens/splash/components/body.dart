@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pervasiveproject/constant.dart';
+import 'package:pervasiveproject/screens/sign_in/sign_in_screen.dart';
 import 'package:pervasiveproject/size_config.dart';
 
 import '../components/splash_content.dart';
@@ -71,7 +72,10 @@ class _BodyState extends State<Body>{
               // create button 'Continue'
               DefaultButton(
                 text: "Continue",
-                press: (){},
+                press: (){
+                  // move to the sign in page
+                  Navigator.pushNamed(context, SignInScreen.routeName);
+                },
               ),
               Spacer(),
 
