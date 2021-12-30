@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pervasiveproject/constant.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:pervasiveproject/components/default_button.dart';
+// import 'package:pervasiveproject/components/form_error.dart';
+// import 'package:pervasiveproject/constant.dart';
+// import 'package:pervasiveproject/components/custom_surfix_icon.dart';
+import 'package:pervasiveproject/screens/sign_in/components/sign_form.dart';
 // import 'package:pervasiveproject/theme.dart';
 
 import '../../../size_config.dart';
@@ -39,34 +43,5 @@ class Body extends StatelessWidget {
   }
 }
 
-class SignForm extends StatefulWidget {
-  // const ({ Key? key }) : super(key: key);
-  @override
-  _SignFormState createState() => _SignFormState();
-}
-
-class _SignFormState extends State<SignForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: "Email",
-              hintText: "Enter your email",
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-
-              // create icon email 
-              // suffixIcon: SvgPicture.asset("assets/icons/Mail.svg"),
 
 
-            ),
-          ),
-
-      ],
-      ),
-      
-    );
-  }
-}

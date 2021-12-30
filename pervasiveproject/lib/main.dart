@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pervasiveproject/constant.dart';
 import 'package:pervasiveproject/screens/splash/splash_screen.dart';
 import 'package:pervasiveproject/routes.dart';
 import 'package:pervasiveproject/theme.dart';
