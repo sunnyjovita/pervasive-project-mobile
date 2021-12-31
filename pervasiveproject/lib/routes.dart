@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:pervasiveproject/screens/login_success/login_success_screen.dart';
 import 'package:pervasiveproject/screens/sign_in/sign_in_screen.dart';
 import 'package:pervasiveproject/screens/splash/splash_screen.dart';
 
@@ -7,4 +8,5 @@ import 'package:pervasiveproject/screens/splash/splash_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
+  LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
 };

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pervasiveproject/components/custom_surfix_icon.dart';
 import 'package:pervasiveproject/components/default_button.dart';
 import 'package:pervasiveproject/components/form_error.dart';
+import 'package:pervasiveproject/screens/login_success/login_success_screen.dart';
 
 import '../../../constant.dart';
 import '../../../size_config.dart';
@@ -63,11 +64,14 @@ class _SignFormState extends State<SignForm> {
 
           // create button
           DefaultButton(
-            text: "login", 
+            text: "Login", 
             press: (){
               // validator 
               if(_formKey.currentState!.validate()){
                 _formKey.currentState!.save();
+
+                // if valid, we go to the success screen
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
             ),
@@ -101,10 +105,12 @@ class _SignFormState extends State<SignForm> {
               setState(() {
                 errors.add(kPassNullError);
               });
+              return "";
             } else if (value.length < 8 && !errors.contains(kShortPassError)){
               setState(() {
                 errors.add(kShortPassError);
               });
+              return "";
             }
             return null;
           },
@@ -144,10 +150,12 @@ class _SignFormState extends State<SignForm> {
               setState(() {
                 errors.add(kEmailNullError);
               });
+              return "";
             } else if (!emailValidatorRegExp.hasMatch(value) && !errors.contains(kInvalidEmailError)){
               setState(() {
                 errors.add(kInvalidEmailError);
               });
+              return "";
             }
             return null;
           },
