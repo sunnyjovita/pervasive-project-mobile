@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pervasiveproject/screens/gallery/gallery_screen.dart';
+import 'package:pervasiveproject/screens/splash/splash_screen.dart';
 
 import 'components/body.dart';
 import 'package:pervasiveproject/constant.dart';
@@ -14,7 +16,6 @@ class HomeScreen extends StatelessWidget {
         title: Text(
           "Lock and Go", 
           style: TextStyle(
-            // color: Color(0XFF8B8B8B), 
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -65,11 +66,11 @@ class HomeScreen extends StatelessWidget {
            ),
 
 
-           SizedBox(height: 10),
-           Center(child: Text('00.00.01', style: Theme.of(context).textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w600, color: Color.fromRGBO(37, 112, 252, 1)),
-           )),
+          //  SizedBox(height: 10),
+          //  Center(child: Text('00.00.01', style: Theme.of(context).textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w600, color: Color.fromRGBO(37, 112, 252, 1)),
+          //  )),
 
-
+          // gallery
            SizedBox(height: 50),
            Material(
              borderRadius: BorderRadius.circular(10),
@@ -92,16 +93,19 @@ class HomeScreen extends StatelessWidget {
                       style: 
                       TextStyle( fontWeight: FontWeight.w600, fontSize: 20 )
                       ),
-                 
                      ],
                    ),
-                   IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: (){}, iconSize: 15,)
+                   IconButton(icon: Icon(Icons.arrow_forward_ios),
+                  onPressed: (){
+                     // move to the gallery screen
+                  }, 
+                  iconSize: 15,)
                  ],
                ),
              ),
              ),  
 
-
+              // account
                SizedBox(height: 20),
            Material(
              borderRadius: BorderRadius.circular(10),
@@ -139,7 +143,10 @@ class HomeScreen extends StatelessWidget {
                elevation: 0,
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               color: Color(0xFF189AD3),
-              onPressed: (){},
+              onPressed: (){
+                // move to the splash screen
+                  Navigator.pushNamed(context, SplashScreen.routeName);
+              },
               label: 
               Text('Logout', 
               style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),), 
