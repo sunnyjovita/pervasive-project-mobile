@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pervasiveproject/components/socal_card.dart';
@@ -8,6 +9,7 @@ import 'package:pervasiveproject/constant.dart';
 // import 'package:pervasiveproject/constant.dart';
 // import 'package:pervasiveproject/components/custom_surfix_icon.dart';
 import 'package:pervasiveproject/screens/sign_in/components/sign_form.dart';
+import 'package:pervasiveproject/screens/sign_up/sign_up_screen.dart';
 // import 'package:pervasiveproject/theme.dart';
 
 import '../../../size_config.dart';
@@ -67,24 +69,50 @@ class Body extends StatelessWidget {
           
                 SizedBox(height: getProportionateScreenHeight(20)),
           
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account? ",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(16),
-                      ),
-                    ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(16),
-                        color: kPrimaryColor,
-                      ),
-                    )
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       "Don't have an account? ",
+                //       style: TextStyle(
+                //         fontSize: getProportionateScreenWidth(16),
+                //       ),
+                //     ),
+                //     Text(
+                //       "Sign Up",
+                //       style: TextStyle(
+                //         fontSize: getProportionateScreenWidth(16),
+                //         color: kPrimaryColor,
+                //       ),
+                //     )
+                //   ],
+                // ),
+
+        
+    Row(
+       mainAxisAlignment: MainAxisAlignment.center,
+       children: [
+    RichText(
+      text: TextSpan(
+        style: TextStyle(color: Colors.grey, fontSize: 20.0, fontFamily: "Montserrat"),
+        children: <TextSpan>[
+          TextSpan(text: "Don't have an account? "),
+          
+          TextSpan(
+              text: "Sign Up",
+              style: TextStyle(fontSize: 20.0,
+                        color: kPrimaryColor),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  // move to the sign up screen
+                       Navigator.pushNamed(context, SignUpScreen.routeName);
+                }),
+        ],
+      ),
+    ),
+  // }
+       ],
+    ),
           
               ], 
             ),
