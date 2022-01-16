@@ -14,6 +14,7 @@ const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);
+const cardColor = Color.fromRGBO(239,242,248, 1);
 
 // Form Error
 final RegExp emailValidatorRegExp =
