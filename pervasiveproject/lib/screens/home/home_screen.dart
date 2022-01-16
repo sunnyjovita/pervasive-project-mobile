@@ -6,8 +6,18 @@ import 'package:pervasiveproject/screens/splash/splash_screen.dart';
 import 'components/body.dart';
 import 'package:pervasiveproject/constant.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool color1 = false;
+
+  bool text1 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +47,27 @@ class HomeScreen extends StatelessWidget {
         child: Column(
         children: [
           SizedBox(height: 45),
-          Center(child:Text('Your house is locked', style: 
-          TextStyle( fontWeight: FontWeight.bold, fontSize: 20 ),
+          Center(child:
+          text1? 
+          Text(
+            'Your house is locked', 
+            style: 
+          TextStyle( 
+            fontWeight: FontWeight.bold, 
+            fontSize: 20, 
+            color: Colors.blue),
           // Theme.of(context).textTheme.bodyText1, 
-          )),
+          ): 
+          Text(
+            'Your house is unlocked', 
+            style: 
+          TextStyle( 
+            fontWeight: FontWeight.bold, 
+            fontSize: 20, 
+            color: Colors.black),
+          // Theme.of(context).textTheme.bodyText1, 
+          )
+          ),
           SizedBox(height:8),
 
           Center(child: Text('Sunnyjo', style: Theme.of(context).textTheme.bodyText1?.copyWith(color:Color.fromRGBO(37,112,252,1),
@@ -49,12 +76,11 @@ class HomeScreen extends StatelessWidget {
 
           // avatarGlow
          
-
            // create button locked and unlocked
            SizedBox(height:25),
            Center(
-             child:  AvatarGlow(
-            glowColor: Colors.blue, 
+             child: AvatarGlow(
+            glowColor: color1? Colors.blue:Colors.red, 
             endRadius: 100.0,
             duration: Duration(milliseconds: 2000),
             repeat: true,
@@ -63,15 +89,16 @@ class HomeScreen extends StatelessWidget {
             shape: BoxShape.circle,
             // child: Center(
               child: MaterialButton(
-                onPressed: (){},
+                   onPressed: (){
+                      setState(() {
+                color1 = !color1;
+                text1 = !text1;
+              }
+              );
+                   },
                 // elevation: 2,
                 shape: CircleBorder(),
-
-                // onPressed: (){}, 
-                
-                //  height: 150,
-                //  minWidth: 150,
-                 color: Color(0xFF189AD3),
+                 color: color1? Color(0xFF189AD3):Colors.red,
                  child: SizedBox(
                    height: 150,
                    width: 150,
@@ -81,13 +108,16 @@ class HomeScreen extends StatelessWidget {
                      children: [
                        Icon(Icons.power_settings_new, color: Colors.white, size: 50),
                        SizedBox(height: 10),
-                       Text('Locked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),),
-                 
+                       text1? Text('Locked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+                       ): Text('Unlocked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+                       )
                      ],
                    ),
                  ),
+              
                  ),
-            // ),
+
+           
           ),
            ),
 
