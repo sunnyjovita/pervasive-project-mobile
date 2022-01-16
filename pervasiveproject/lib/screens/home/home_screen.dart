@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:pervasiveproject/screens/gallery/gallery_screen.dart';
 import 'package:pervasiveproject/screens/splash/splash_screen.dart';
@@ -26,13 +27,14 @@ class HomeScreen extends StatelessWidget {
         
         leading: Image.asset(
           "assets/images/lock3.png",
-          // width: 100,
-          // height: 100,
+          width: 100,
+          height: 100,
         ),
         ),
 
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
         children: [
           SizedBox(height: 45),
           Center(child:Text('Your house is locked', style: 
@@ -45,24 +47,48 @@ class HomeScreen extends StatelessWidget {
            fontWeight: FontWeight.w600, fontSize: 18),
            )),
 
-           // create button locked and unlocked
-           SizedBox(height:15),
-           Center(
-             child: MaterialButton(onPressed: (){}, shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.circular(90) 
-               ),
-               height: 150,
-               minWidth: 150,
-               color: Color(0xFF189AD3),
-               child: Column(
-                 children: [
-                   Icon(Icons.power_settings_new, color: Colors.white, size: 50),
-                   SizedBox(height: 10),
-                   Text('Locked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),),
+          // avatarGlow
+         
 
-                 ],
-               ),
-               ),
+           // create button locked and unlocked
+           SizedBox(height:25),
+           Center(
+             child:  AvatarGlow(
+            glowColor: Colors.blue, 
+            endRadius: 100.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: false,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            shape: BoxShape.circle,
+            // child: Center(
+              child: MaterialButton(
+                onPressed: (){},
+                // elevation: 2,
+                shape: CircleBorder(),
+
+                // onPressed: (){}, 
+                
+                //  height: 150,
+                //  minWidth: 150,
+                 color: Color(0xFF189AD3),
+                 child: SizedBox(
+                   height: 150,
+                   width: 150,
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Icon(Icons.power_settings_new, color: Colors.white, size: 50),
+                       SizedBox(height: 10),
+                       Text('Locked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),),
+                 
+                     ],
+                   ),
+                 ),
+                 ),
+            // ),
+          ),
            ),
 
 
@@ -71,7 +97,7 @@ class HomeScreen extends StatelessWidget {
           //  )),
 
           // gallery
-           SizedBox(height: 50),
+           SizedBox(height: 40),
            Material(
              borderRadius: BorderRadius.circular(10),
             //  color: Color(0xFF979797),
@@ -98,6 +124,7 @@ class HomeScreen extends StatelessWidget {
                    IconButton(icon: Icon(Icons.arrow_forward_ios),
                   onPressed: (){
                      // move to the gallery screen
+                       Navigator.pushNamed(context, GalleryScreen.routeName);
                   }, 
                   iconSize: 15,)
                  ],
@@ -138,10 +165,10 @@ class HomeScreen extends StatelessWidget {
              ),
 
              // logout
-             SizedBox(height: 35),
+             Spacer(),
              RaisedButton.icon(
                elevation: 0,
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width/4.5),
               color: Color(0xFF189AD3),
               onPressed: (){
                 // move to the splash screen
@@ -154,7 +181,9 @@ class HomeScreen extends StatelessWidget {
               icon: Icon(IconData(0xe3b3, fontFamily: 'MaterialIcons'), color: Colors.white,
               ),
              ), 
+             SizedBox(height: 35),
       ],
+      ),
       ),
     );
   }
