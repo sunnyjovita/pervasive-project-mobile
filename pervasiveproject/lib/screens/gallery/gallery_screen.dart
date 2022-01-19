@@ -32,7 +32,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
         builder: (context, AsyncSnapshot snapShot)
         {
           print('Building with snapshot = $snapShot');
-            Map data = snapShot.data;
+            List data = snapShot.data;
+            // print(data[0]['url']);
             if(snapShot.hasError){
               print(snapShot.error);
               return Text('Failed to get response from the server',
@@ -51,7 +52,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         new Container(
                           child: new InkWell(
                             child: new Image.network(
-                              '${data[index]['url']}'
+                              // '${data["hits"][index]['userImageURL']}'
+                               '${data[index]['download_url']}'
+                               
                             ),
                           ),
                         )
@@ -62,8 +65,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
                  
                   ),
               );
-            }else if(!snapShot.hasData){
-              return new Center(child: CircularProgressIndicator(),); 
+            }else{
+              return new Center(child: CircularProgressIndicator()); 
             }
             
        
@@ -71,45 +74,15 @@ class _GalleryScreenState extends State<GalleryScreen> {
     );
   }
 }
-
-Future<Map> getPics() async{
+var apiKey = '9443505-db0b1bdc3709bafd4c6cebb87';
+Future<List> getPics() async{
   var url = Uri.parse('https://picsum.photos/v2/list');
+  // var url = Uri.parse('https://pixabay.com/api/?key=$apiKey&q=cars&image_type=photo&pretty=true');
   http.Response response = await http.get(url);
   return json.decode(response.body);
 
 }
 
-// class GalleryScreen extends StatelessWidget {
-//   static String routeName = "/gallery";
-//   // static String routeName = "/gallery";
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//          centerTitle: true,
-//         title: Text(
-//           "Gallery", 
-//           style: TextStyle(
-//             color: Colors.black,
-//             fontSize: 18,
-//             fontWeight: FontWeight.bold,
-//             ),
-//             ),
-//       ),
 
-//       body: Center(
-//         child: Container(
-//           child: Image.network
-//           // ("https://i.pinimg.com/originals/0c/5d/9c/0c5d9c58a9f6d522e51f0fdda7bcf525.png"),
-//           ("https://miro.medium.com/max/1000/1*NLnnf_M4Nlm4p1GAWrWUCQ.gif"),
-//           width: 380,
-//           height: 500,
-
-//         ),
-//       )
-      
-//     );
-//   }
-// }
 
 
