@@ -38,6 +38,8 @@ dependencies:
   # flutter_svg: ^0.18.0 # help us to use SVG in our app
   provider: ^4.3.1 # for state management
   avatar_glow: ^1.2.0
+  path_provider: ^0.4.1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

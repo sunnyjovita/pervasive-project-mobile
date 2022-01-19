@@ -28,9 +28,6 @@ InputDecorationTheme inputDecorationTheme() {
             enabledBorder: outlineInputBorder,
             focusedBorder: outlineInputBorder,
             border: outlineInputBorder,
-
-
-
           );
 }
 

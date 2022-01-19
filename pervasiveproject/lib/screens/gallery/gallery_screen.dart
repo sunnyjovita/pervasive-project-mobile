@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-// import 'package:pervasiveproject/constant.dart';
-
-class GalleryScreen extends StatelessWidget {
+class GalleryScreen extends StatefulWidget {
   static String routeName = "/gallery";
-  // static String routeName = "/gallery";
+  @override
+  _GalleryScreenState createState() => _GalleryScreenState();
+}
+
+class _GalleryScreenState extends State<GalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+       appBar: AppBar(
          centerTitle: true,
         title: Text(
           "Gallery", 
@@ -20,116 +26,90 @@ class GalleryScreen extends StatelessWidget {
             ),
       ),
 
-      body: ListView(
-         children: [
-          SizedBox(height: 25),
-          Center(child:Text('...', style: 
-          TextStyle( fontWeight: FontWeight.bold, fontSize: 20 ),
-          // Theme.of(context).textTheme.bodyText1, 
-          )),
+      body: new FutureBuilder(
 
-          SizedBox(height:8),
+        future: getPics(),
+        builder: (context, AsyncSnapshot snapShot)
+        {
+          print('Building with snapshot = $snapShot');
+            Map data = snapShot.data;
+            if(snapShot.hasError){
+              print(snapShot.error);
+              return Text('Failed to get response from the server',
+              style: TextStyle(color: Colors.red,
+              fontSize: 22.0),
+              );
 
-          // Center(child: Text('Sunnyjo', style: Theme.of(context).textTheme.bodyText1?.copyWith(color:Color.fromRGBO(37,112,252,1),
-          //  fontWeight: FontWeight.w600, fontSize: 18),
-          //  )),
-
-          //  // create button locked and unlocked
-          //  SizedBox(height:15),
-          //  Center(
-          //    child: MaterialButton(onPressed: (){}, shape: RoundedRectangleBorder(
-          //      borderRadius: BorderRadius.circular(90) 
-          //      ),
-          //      height: 150,
-          //      minWidth: 150,
-          //      color: Color(0xFF189AD3),
-          //      child: Column(
-          //        children: [
-          //          Icon(Icons.power_settings_new, color: Colors.white, size: 50),
-          //          SizedBox(height: 10),
-          //          Text('Locked', style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),),
-
-          //        ],
-          //      ),
-          //      ),
-          //  ),
-
-
-          //  SizedBox(height: 10),
-          //  Center(child: Text('00.00.01', style: Theme.of(context).textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w600, color: Color.fromRGBO(37, 112, 252, 1)),
-          //  )),
-
-          // // gallery
-          //  SizedBox(height: 50),
-          //  Material(
-          //    borderRadius: BorderRadius.circular(10),
-          //   //  color: Color(0xFF979797),
-          //    color: Color.fromRGBO(239,242,248, 1),
-          //    child: Padding(
-          //      padding: const EdgeInsets.all(8.0),
-          //      child: Row(
-          //        crossAxisAlignment: CrossAxisAlignment.center,
-          //        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //        children: [
-          //         Wrap(
-          //           crossAxisAlignment: WrapCrossAlignment.center,
-          //            children: [
-          //              CircleAvatar(
-                         
-          //              ), 
-          //             SizedBox(width: 15),
-          //             Text('Gallery', 
-          //             style: 
-          //             TextStyle( fontWeight: FontWeight.w600, fontSize: 20 )
-          //             ),
-          //            ],
-          //          ),
-          //          IconButton(icon: Icon(Icons.arrow_forward_ios),
-          //         onPressed: (){
-          //            // move to the gallery screen
-          //              Navigator.pushNamed(context, GalleryScreen.routeName);
-          //         }, 
-          //         iconSize: 15,)
-          //        ],
-          //      ),
-          //    ),
-          //    ),  
-
-          //     // account
-          //      SizedBox(height: 20),
-          //  Material(
-          //    borderRadius: BorderRadius.circular(10),
-          //   //  color: Color(0xFF979797),
-          //    color: Color.fromRGBO(239,242,248, 1),
-          //    child: Padding(
-          //      padding: const EdgeInsets.all(8.0),
-          //      child: Row(
-          //        crossAxisAlignment: CrossAxisAlignment.center,
-          //        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //        children: [
-          //         Wrap(
-          //           crossAxisAlignment: WrapCrossAlignment.center,
-          //            children: [
-          //              CircleAvatar(
-                         
-          //              ), 
-          //             SizedBox(width: 15),
-          //             Text('Account', 
-          //             style: 
-          //             TextStyle( fontWeight: FontWeight.w600, fontSize: 20 )
-          //             ),
+            }else if(snapShot.hasData){
+              return new Center(
+                child: new ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index){
+                    return new Column(
+                      children: <Widget> [
+                        new Padding(padding: const EdgeInsets.all(5.0)),
+                        new Container(
+                          child: new InkWell(
+                            child: new Image.network(
+                              '${data[index]['url']}'
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                    
+                  }
                  
-          //            ],
-          //          ),
-          //          IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: (){}, iconSize: 15,)
-          //        ],
-          //      ),
-          //    ),
-          //    ),
-
-      ],
-      ),
-      
+                  ),
+              );
+            }else if(!snapShot.hasData){
+              return new Center(child: CircularProgressIndicator(),); 
+            }
+            
+       
+        }),
     );
   }
 }
+
+Future<Map> getPics() async{
+  var url = Uri.parse('https://picsum.photos/v2/list');
+  http.Response response = await http.get(url);
+  return json.decode(response.body);
+
+}
+
+// class GalleryScreen extends StatelessWidget {
+//   static String routeName = "/gallery";
+//   // static String routeName = "/gallery";
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//          centerTitle: true,
+//         title: Text(
+//           "Gallery", 
+//           style: TextStyle(
+//             color: Colors.black,
+//             fontSize: 18,
+//             fontWeight: FontWeight.bold,
+//             ),
+//             ),
+//       ),
+
+//       body: Center(
+//         child: Container(
+//           child: Image.network
+//           // ("https://i.pinimg.com/originals/0c/5d/9c/0c5d9c58a9f6d522e51f0fdda7bcf525.png"),
+//           ("https://miro.medium.com/max/1000/1*NLnnf_M4Nlm4p1GAWrWUCQ.gif"),
+//           width: 380,
+//           height: 500,
+
+//         ),
+//       )
+      
+//     );
+//   }
+// }
+
+
